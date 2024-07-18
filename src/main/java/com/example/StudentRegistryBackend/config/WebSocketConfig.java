@@ -1,4 +1,4 @@
-package com.example.StudentRegistryBackend.config;
+/*package com.example.StudentRegistryBackend.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
@@ -21,3 +21,4 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
         registry.addEndpoint("/chat-websocket").setAllowedOriginPatterns("*").withSockJS();
     }
 }
+*/

@@ -1,11 +1,6 @@
 // Represents the data model.
 package com.example.StudentRegistryBackend.model;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "students")
@@ -13,11 +8,18 @@ public class Student {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
+    @Column(name = "id")
     private Long id;
+    @Column(name = "name")
     private String name;
+    @Column(name = "age")
     private int age;
+    @Column(name = "grade")
     private String grade;
+    @Column(name = "password")
+    private String password;
+    @Transient
+    private String token;
 
     public Student() {}
 
@@ -52,6 +54,22 @@ public class Student {
 
     public void setGrade(String grade) {
         this.grade = grade;
+    }
+
+
+    public String getPassword() {
+        return password;
+    }
+    public void setPassword( String password){
+        this.password = password;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }
 
