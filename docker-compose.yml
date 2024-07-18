@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  postgres:
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    image: postgres:14
+    environment:
+      POSTGRES_DB: studentRegistry
+      POSTGRES_USER: lisalin
+      POSTGRES_PASSWORD: lys220130
+    ports:
+      - "5432:5432"
+
+  backend:
+    build: .
+    volumes:
+      - .:/app
+    depends_on:
+      - postgres
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/studentRegistry
+      SPRING_DATASOURCE_USERNAME: lisalin
+      SPRING_DATASOURCE_PASSWORD: lys220130
+    ports:
+      - "8081:8081"
+volumes:
+  postgres_data:
