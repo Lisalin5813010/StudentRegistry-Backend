@@ -5,7 +5,7 @@ import com.example.StudentRegistryBackend.common.Result;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.OutputStream;
 import java.net.URLEncoder;
 import java.util.List;
@@ -34,12 +34,14 @@ public class FileController {
         }
         // 文件存储形式：时间戳-文件名
         FileUtil.writeBytes(file.getBytes(), filePath + flag + "-" + fileName);
-        System.out.println(fileName + "--上传成功");
+        System.out.println(fileName + "林林林林" + "--上传成功");
         Thread.sleep(1L);
       } catch (Exception e) {
         System.err.println(fileName + "--文件上传失败");
       }
+      System.out.println("雨雨雨雨雨雨雨雨" + flag);
       return Result.success(flag);
+
     }
   }
 
@@ -47,7 +49,7 @@ public class FileController {
   /**
    * 获取文件
    */
-  @GetMapping("/{flag}")
+  @GetMapping("/{flag}") // flag为时间戳（不包括文件名）
   public void avatarPath(@PathVariable String flag, HttpServletResponse response) {
     if (!FileUtil.isDirectory(filePath)) {
       FileUtil.mkdir(filePath);

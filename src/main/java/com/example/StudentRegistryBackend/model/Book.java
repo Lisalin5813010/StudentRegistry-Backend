@@ -20,10 +20,29 @@ public class Book {
   private String press;
   @Column(name = "img")
   private String img;
+  @Column(name = "typeId")
+  private Integer typeId;
   @Transient
-  private String token;
+  private String typeName;
 
-  public Book() {}
+  public String getTypeName() {
+    return typeName;
+  }
+
+  public void setTypeName(String typeName) {
+    this.typeName = typeName;
+  }
+
+  public Integer getTypeId() {
+    return typeId;
+  }
+
+  public void setTypeId(Integer typeId) {
+    this.typeId = typeId;
+  }
+
+  public Book() {
+  }
 
   // Getters and Setters
   public Long getId() {
@@ -62,22 +81,18 @@ public class Book {
   public String getPress() {
     return press;
   }
-  public void setPress(String press){
+
+  public void setPress(String press) {
     this.press = press;
   }
+
   public String getImg() {
     return img;
   }
-  public void setImg( String img){
+
+  public void setImg(String img) {
     this.img = img;
   }
 
-  public String getToken() {
-    return token;
-  }
-
-  public void setToken(String token) {
-    this.token = token;
-  }
 }
 

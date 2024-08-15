@@ -1,21 +1,19 @@
 // Contains business logic
 package com.example.StudentRegistryBackend.service;
-import com.example.StudentRegistryBackend.common.JwtTokenUtils;
-import com.example.StudentRegistryBackend.controller.BookControllor;
+import cn.hutool.core.collection.CollectionUtil;
 import com.example.StudentRegistryBackend.exception.CustomException;
 import com.example.StudentRegistryBackend.model.Book;
-import com.example.StudentRegistryBackend.model.Params;
+import com.example.StudentRegistryBackend.model.Type;
 import com.example.StudentRegistryBackend.repository.BookRepository;
+import com.example.StudentRegistryBackend.repository.TypeRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -25,13 +23,32 @@ public class BookService {
 
   @Autowired
   private BookRepository bookRepository;
+  @Autowired
+  TypeRepository typeRepository;
 
   public List<Book> getAllBooks() {
-    return bookRepository.findAll();
+    List<Book> list = bookRepository.findAll();
+    if(CollectionUtil.isEmpty(list)){
+      return new ArrayList<>();
+    }else{
+      for (Book book: list)
+      {
+        Type type = typeRepository.selectByPrimaryKey(book.getTypeId());
+
+        book.setTypeName(type.getName());
+      }
+        return list;
+    }
+
+
+
   }
   public Book findByName(String name){
     return bookRepository.findByName(name);
   }
+
+
+
 
   public void add(Book book) {
 
@@ -52,9 +69,6 @@ public class BookService {
   }
 
   public void update(Book book) {
-    bookRepository.save(book);
-  }
-  public void updateOnlyAuthor(Book book) {
     bookRepository.save(book);
   }
 

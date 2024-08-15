@@ -8,19 +8,20 @@ import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import java.util.Map;
 
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("/book")
-public class BookControllor {
+public class BookController {
 
 
-  private static final Logger logger = LoggerFactory.getLogger(BookControllor.class);
+  private static final Logger logger = LoggerFactory.getLogger(BookController.class);
 
   @Autowired
   private BookService bookService;
-  @GetMapping("")
+  @GetMapping
   public Result findAll() {
     List<Book> books = bookService.getAllBooks();
     return Result.success(books);
@@ -28,8 +29,11 @@ public class BookControllor {
   @GetMapping("/search")
   public Result findBySearch(@RequestParam String name) {
     Book book = bookService.findByName(name);
-    return book != null ? Result.success(book) : Result.error("Book not founddddd");
+    return book != null ? Result.success(book) : Result.error("Book not found");
   }
+
+
+
   @PostMapping
   public Result save(@RequestBody Book book) {
     if (book.getId() == null) {
